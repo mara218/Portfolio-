@@ -598,6 +598,23 @@
     letter-spacing: -0.01em;
   }
   .project-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    cursor: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .project-link:hover { background: var(--accent); color: var(--bg); }
   .project-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .stack-tag {
     font-size: 0.68rem;
@@ -994,6 +1011,7 @@
           <div class="meta-stat">🗂 Role <span>Full-Stack Developer</span></div>
           <div class="meta-stat">🔀 Shipped <span>PR #102, #122 + more</span></div>
         </div>
+        <a href="https://www.youtube.com/watch?v=Q56KQFY9gYY" target="_blank" rel="noopener noreferrer" class="project-link">▶ Watch Team Demo</a>
       </div>
 
       <!-- GCP API -->
