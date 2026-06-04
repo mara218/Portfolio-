@@ -73,7 +73,53 @@
   }
   body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; }
 
-  /* Noise overlay */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8,12,16,0.97);
+    backdrop-filter: blur(16px);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--accent); }
+    body { cursor: auto !important; }
+    #cursor, #cursor-ring { display: none !important; }
+  }
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -666,9 +712,8 @@
   /* Responsive */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.25rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.72rem; }
-    #theme-toggle { width: 26px; height: 26px; font-size: 0.75rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
     .container { padding: 0 1.25rem; }
     .hero-grid, #about .grid, .contact-grid { grid-template-columns: 1fr; }
     .hero-visual { display: flex; justify-content: center; margin-top: 2rem; }
@@ -705,7 +750,18 @@
     <li><a href="#contact">contact</a></li>
     <li><button id="theme-toggle" aria-label="Toggle theme">☀</button></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mobile-nav-link">about</a>
+  <a href="#skills" class="mobile-nav-link">skills</a>
+  <a href="#projects" class="mobile-nav-link">projects</a>
+  <a href="#experience" class="mobile-nav-link">experience</a>
+  <a href="#contact" class="mobile-nav-link">contact</a>
+</div>
 
 <!-- Hero -->
 <section id="hero">
@@ -1286,6 +1342,20 @@
     });
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
+    });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
     });
   });
 </script>
